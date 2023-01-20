@@ -1,1 +1,80 @@
+#Challenge Company: Microsoft
 
+
+1.You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<tokens.length;++i){
+            if(tokens[i].compareTo("+")==0){
+                st.push(st.pop()+st.pop());
+            }
+            else if(tokens[i].compareTo("-")==0){
+                st.push(-st.pop()+st.pop());
+            }
+            else if(tokens[i].compareTo("*")==0){
+                st.push(st.pop()*st.pop());
+            }
+            else if(tokens[i].compareTo("/")==0){
+                int op2=st.pop();
+                int op1=st.pop();
+                st.push(op1/op2);
+            }
+            else{
+                st.push(Integer.valueOf(tokens[i]));
+            } 
+        }
+        return st.peek();
+    }
+}
+
+2.Combination Sum with a twist.
+
+class Solution {
+    static void getCombinationSum3(int ind,int[] nums,ArrayList<Integer> ds,List<List<Integer>> ans,int k,int n){
+        if(n==0){
+            if(ds.size()==k){
+                ans.add(new ArrayList<Integer>(ds));
+            }
+            return ;
+        }
+        for(int i=ind;i<nums.length;++i){
+            if(nums[i]>n) break;
+            ds.add(nums[i]);
+            getCombinationSum3(i+1,nums,ds,ans,k,n-nums[i]);
+            ds.remove(ds.size()-1);
+        }
+    }
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ans=new ArrayList<>();
+        int[] nums=new int[10];
+        for(int i=1;i<=9;++i){
+            nums[i-1]=i;
+        }
+        ArrayList<Integer> ds=new ArrayList<>();
+        getCombinationSum3(0,nums,ds,ans,k,n);
+        return ans;
+    }
+}
+
+3.Bulls and Cows
+
+class Solution {
+    public String getHint(String secret, String guess) {
+        int n=secret.length(),bulls=0,cows=0;
+        int num[]=new int[10];
+       for(int i=0;i<n;++i){
+           char s=secret.charAt(i);
+           char g=guess.charAt(i);
+           if(s==g){
+               ++bulls;
+           }
+           else{
+               if(num[s-'0']++<0) ++cows;
+               if(num[g-'0']-->0) ++cows;
+           }
+       }
+       return bulls+"A"+cows+"B";
+    }
+}
