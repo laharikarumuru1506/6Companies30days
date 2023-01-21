@@ -2,6 +2,26 @@ Continuation......# Microsoft
 DAY 2..........
 
 4.You are given an integer array nums of length n. Return maximum length of Rotation Function.
+
+class Solution {
+    public int maxRotateFunction(int[] nums) {
+        int n=nums.length,sum=0;
+        int dp[]=new int[n];
+        for(int i=0;i<n;++i){
+            sum+=nums[i];
+            dp[0]+=i*nums[i];
+        }
+        int res=dp[0],ind=n-1;
+        for(int i=1;i<n;++i){
+            dp[i]=dp[i-1]+sum-(n*nums[ind]);
+            ind--;
+            res=Math.max(res,dp[i]);
+        }
+        return res;
+    }
+}
+
+
 5.Largest Divisible Subset.
 6.How to find a perfect Rectangle.
 
