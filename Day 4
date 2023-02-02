@@ -2,6 +2,29 @@ Continuation......# Microsoft
 DAY 4..........
 
 10.Shortest Unsorted continuous Subarray
+
+class Solution {
+    public int findUnsortedSubarray(int[] nums) {
+        int n=nums.length;
+       int[] arr=new int[n];
+       for(int i=0;i<n;++i){
+           arr[i]=nums[i];
+       } 
+       Arrays.sort(arr);
+       int i=0,j=n-1,res=0;
+       while(i<j){
+           if(nums[i]!=arr[i] && nums[j]!=arr[j]){
+               res=j-i+1;
+               break;
+           }
+           if(nums[i]==arr[i]) ++i;
+           if(nums[j]==arr[j]) --j;
+       }
+       return res;
+    }
+}
+
+
 11.Number of ways to arrive at a Destination.
 12.Longest Happy Prefix
 
