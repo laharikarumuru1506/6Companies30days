@@ -5,3 +5,25 @@ DAY 5..........
 14.Deletions to make an array divisible.
 15.Substrings containing all three Characters
 
+class Solution {
+    public int numberOfSubstrings(String s) {
+        int i=0,j=0,size=s.length(),cnt=3,res=0;
+        Map<Character,Integer> m=new HashMap<>();
+        m.put('a',1);
+        m.put('b',1);
+        m.put('c',1);
+        while(j<size){
+            m.put(s.charAt(j),m.get(s.charAt(j))-1);
+            if(m.get(s.charAt(j))==0) --cnt;
+            while(cnt==0){
+                res+=size-j;
+                m.put(s.charAt(i),m.get(s.charAt(i))+1);
+                if(m.get(s.charAt(i))>0) ++cnt;
+                ++i;
+            }
+            ++j;
+        }
+        return res;
+    }
+}
+
