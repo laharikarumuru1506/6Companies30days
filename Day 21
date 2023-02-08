@@ -2,5 +2,20 @@ Challenge Company: Google
 Day 21 ..........
 
 1.Maximum Consecutive Floors Without Special Floors
+
+class Solution {
+    public int maxConsecutive(int bottom, int top, int[] special) {
+        Arrays.sort(special);
+        int size=special.length,res=0;
+        for(int i=1;i<size;++i){
+            res=Math.max(res,special[i]-special[i-1]-1);
+        }
+        res=Math.max(res,special[0]-bottom);
+        res=Math.max(res,top-special[size-1]);
+        return res;
+    }
+}
+
+
 2.Maximum Good People Based on Statements
 3.Sort an array 
