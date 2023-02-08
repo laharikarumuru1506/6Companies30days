@@ -4,3 +4,30 @@ DAY 7..........
 4.Number of Boomerangs (Similar to peacocks question)
 5.Split Array into Sequences
 6.Minimum Consecutive Cards to pick up
+
+class Solution {
+    public int minimumCardPickup(int[] cards) {
+       int i=0,j=0,size=cards.length,res=size,flag=0;
+       Map<Integer,Integer> m=new HashMap<>();
+       while(j<size){
+           if(!m.containsKey(cards[j])){
+               m.put(cards[j],1);
+           }
+           else{
+               m.put(cards[j],m.get(cards[j])+1);
+               while(m.get(cards[j])>1){
+                   flag=1;
+                   res=Math.min(res,j-i+1);
+                   m.put(cards[i],m.get(cards[i])-1);
+                   if(m.get(cards[i])==0){
+                       m.remove(cards[i]);
+                   }
+                   ++i;
+               }
+           }
+           ++j;
+       }
+       if(flag==0) return -1;
+       return res; 
+    }
+}
