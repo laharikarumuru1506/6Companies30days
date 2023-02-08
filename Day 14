@@ -4,3 +4,24 @@ DAY 14..........
 10.Max matrix Sum
 11.Stock Price Fluctuation
 12.Shortest Unsorted Continuous Subarray
+
+class Solution {
+    public int findUnsortedSubarray(int[] nums) {
+        int n=nums.length;
+       int[] arr=new int[n];
+       for(int i=0;i<n;++i){
+           arr[i]=nums[i];
+       } 
+       Arrays.sort(arr);
+       int i=0,j=n-1,res=0;
+       while(i<j){
+           if(nums[i]!=arr[i] && nums[j]!=arr[j]){
+               res=j-i+1;
+               break;
+           }
+           if(nums[i]==arr[i]) ++i;
+           if(nums[j]==arr[j]) --j;
+       }
+       return res;
+    }
+}
