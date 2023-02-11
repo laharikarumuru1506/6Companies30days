@@ -19,3 +19,19 @@ class Solution {
 
 2.Maximum Good People Based on Statements
 3.Sort an array 
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int size=nums.length;
+        Queue<Integer> pq=new PriorityQueue<>();
+        for(int i=0;i<size;++i){
+            pq.add(nums[i]);
+        }
+        int[] res=new int[size];
+        int i=0;
+        while(pq.size()>0){
+            res[i++]=pq.poll();
+        }
+        return res;
+    }
+}
