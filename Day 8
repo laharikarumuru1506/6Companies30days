@@ -10,7 +10,6 @@ class Solution {
         if(i==aliceArrows.length || numArrows==0){
             if(maxScore<currentScore){
                 maxScore=currentScore;
-                System.out.println("maxScore : "+maxScore);
                 for(int j=0;j<ds.length;++j){
                     res[j]=ds[j];
                 }
@@ -18,7 +17,6 @@ class Solution {
             }
             return;
         }
-        System.out.println(i+" "+numArrows+" "+aliceArrows[i]+" "+currentScore);
         if(numArrows>aliceArrows[i]){
             ds[i]=aliceArrows[i]+1;
             maximumPoints(i+1,aliceArrows,numArrows-ds[i],ds,res,currentScore+i);
