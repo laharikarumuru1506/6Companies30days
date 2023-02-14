@@ -3,4 +3,37 @@ DAY 8..........
 
 7.Count Good Triplets in Array (Profits in a Startup Question)
 8.Maximum Points in Archery Competition
+
+class Solution {
+    int maxScore=0;
+    public void maximumPoints(int i,int[] aliceArrows,int numArrows,int[] ds,int[] res,int currentScore){
+        if(i==aliceArrows.length || numArrows==0){
+            if(maxScore<currentScore){
+                maxScore=currentScore;
+                System.out.println("maxScore : "+maxScore);
+                for(int j=0;j<ds.length;++j){
+                    res[j]=ds[j];
+                }
+                res[0]+=numArrows;
+            }
+            return;
+        }
+        System.out.println(i+" "+numArrows+" "+aliceArrows[i]+" "+currentScore);
+        if(numArrows>aliceArrows[i]){
+            ds[i]=aliceArrows[i]+1;
+            maximumPoints(i+1,aliceArrows,numArrows-ds[i],ds,res,currentScore+i);
+            ds[i]=0;
+            }
+        maximumPoints(i+1,aliceArrows,numArrows,ds,res,currentScore);
+    }
+    public int[] maximumBobPoints(int numArrows, int[] aliceArrows) {
+        int size=aliceArrows.length;
+        int[] res=new int[size];
+        int[] ds=new int[size];
+        maximumPoints(0,aliceArrows,numArrows,ds,res,0);
+        return res;
+    }
+}
+
+
 9.Initial Public Offering
