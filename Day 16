@@ -2,5 +2,34 @@ Challenge Company: Flipkart
 Day 16 ..........
 
 1.Partition to K Equal Sum Subsets
+
+class Solution {
+    public boolean subsetSumCount(int[] nums,int target,int sum,int n,int index,boolean[] v,int k){
+        if(k==1) return true;
+        if(index==n) return false;
+        if(sum==target){
+            return subsetSumCount(nums,target,0,n,0,v,k-1);
+        }
+        for(int i=index;i<n;++i){
+            if(v[i] || sum+nums[i]>target) continue;
+            v[i]=true;
+            if(subsetSumCount(nums,target,sum+nums[i],n,i+1,v,k)){
+                return true;
+            }
+            v[i]=false;
+        }
+        return false;
+    }
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int size=nums.length,totalSum=0;
+        for(int i=0;i<size;++i){
+            totalSum+=nums[i];
+        }
+        if(totalSum%k!=0) return false;
+        boolean[] v=new boolean[size];
+        return subsetSumCount(nums,totalSum/k,0,size,0,v,k);
+    }
+}
+
 2.Sale and Offers at Flipkart BBD
 3.Remove Zero Sum Consecutive Nodes
