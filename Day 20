@@ -3,4 +3,43 @@ DAY 20..........
 
 13.Max Area of Island
 14.Custom String Sorting
+
+class Solution {
+    public String customSortString(String order, String s) {
+        Map<Character,Integer> m=new HashMap<>();
+        for(int i=0;i<s.length();++i){
+            char ch=s.charAt(i);
+            m.put(ch,m.getOrDefault(ch,0)+1);
+        }
+        String res="";
+        for(int i=0;i<order.length();++i){
+            char ch=order.charAt(i);
+            if(m.containsKey(ch)){
+                int freq=m.get(ch);
+                m.remove(ch);
+                if(freq>1){
+                    for(int j=1;j<=freq;++j){
+                        res+=ch;
+                    }
+                }
+                else{
+                    res+=ch;
+                }
+            }
+        }
+        for(Character key:m.keySet()){
+            int freq=m.get(key);
+            if(freq>1){
+                for(int j=1;j<=freq;++j){
+                    res+=key;
+                }
+            }
+            else{
+                res+=key;
+            } 
+        }
+        return res;
+    }
+}
+
 15.House Robber - Very Imp.
