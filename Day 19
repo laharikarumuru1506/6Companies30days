@@ -4,3 +4,20 @@ DAY 19..........
 10.Distant Barcodes\
 11.The new game to Play
 12.Check If a String Contains All Binary Codes of Size K
+
+class Solution {
+    public boolean hasAllCodes(String s, int k) {
+        Map<String,Integer> m=new HashMap<>();
+        int i=0,j=0,size=s.length();
+        while(j<size){
+            if(j-i+1==k){
+                String str=s.substring(i,j+1);
+                if(!m.containsKey(str)) m.put(str,1);
+                ++i;
+            }
+            ++j;
+        }
+        if(m.size()==Math.pow(2,k)) return true;
+        return false;
+    }
+}
