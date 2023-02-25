@@ -2,5 +2,29 @@ Continuation......# Google
 DAY 22..........
 
 4.Fruit into Baskets
+
+class Solution {
+    public int totalFruit(int[] fruits) {
+        int size=fruits.length,res=0;
+        Map<Integer,Integer> m=new HashMap<>();
+        int i=0,j=0;
+        while(j<size){
+            m.put(fruits[j],m.getOrDefault(fruits[j],0)+1);
+            if(m.size()>2){
+                res=Math.max(res,j-i);
+                while(m.size()>2){
+                    m.put(fruits[i],m.get(fruits[i])-1);
+                    if(m.get(fruits[i])==0) m.remove(fruits[i]);
+                    ++i;
+                }
+            }
+            ++j;
+        }
+        res=Math.max(res,j-i);
+        return res;
+    }
+}
+
+
 5.Number of Closed Islands
 6.Distinct Echo Substrings
