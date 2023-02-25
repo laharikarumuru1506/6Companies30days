@@ -4,3 +4,31 @@ DAY 25..........
 13.Swim in rising Water (Jeff and the rising hat)
 14.Strictly Palindromic Number
 15.Max Compatibility Score
+
+class Solution {
+    public int compateScore(int[] st,int[] mt){
+        int cnt=0;
+        for(int i=0;i<st.length;++i){
+            if(st[i]==mt[i]) ++cnt;
+        }
+        System.out.println(cnt);
+        return cnt;
+    }
+    int res=0;
+    public void solve(int[][] st,int[][] mt,int m,int n,int i,int[] v,int score){
+        if(i==m){
+            res=Math.max(res,score);
+        }
+        for(int j=0;j<m;++j){
+            if(v[j]==1) continue;
+            v[j]=1;
+            solve(st,mt,m,n,i+1,v,score+compateScore(st[i],mt[j]));
+            v[j]=0;
+        }
+    }
+    public int maxCompatibilitySum(int[][] students, int[][] mentors) {
+        int m=students.length,n=students[0].length;
+        solve(students,mentors,m,n,0,new int[m],0);
+        return res;
+    }
+}
