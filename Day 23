@@ -4,3 +4,17 @@ DAY 23..........
 7.K divisible Array Substrings
 8.Random Pick with Weight (New Project at Google Play Services)
 9.Maximum Numbers of Coins you can get
+
+class Solution {
+    public int maxCoins(int[] piles) {
+        int size=piles.length,k=size/3;
+        Arrays.sort(piles);
+        int res=0;
+        for(int i=size-2;i>=0;i-=2){
+            res+=piles[i];
+            --k;
+            if(k==0) break;
+        }
+        return res;
+    }
+}
