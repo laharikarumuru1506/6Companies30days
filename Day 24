@@ -2,5 +2,52 @@ Continuation......# Google
 DAY 24..........
 
 10.Network Delay Time
+
+class Pair{
+    int node,t;
+    public Pair(int t,int node){
+        this.node=node;
+        this.t=t;
+    }
+}
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        List<List<Pair>> adj=new ArrayList<>();
+        for(int i=0;i<n+1;++i){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<times.length;++i){
+            adj.get(times[i][0]).add(new Pair(times[i][2],times[i][1]));
+        }
+        Queue<Pair> q=new PriorityQueue<>(new Comparator<Pair>(){
+            @Override
+            public int compare(Pair o1,Pair o2){
+                if(o1.t>o2.t) return 1;
+                return -1;
+            }
+        });
+        int[] visit=new int[n+1];
+        int[] dst=new int[n+1];
+        Arrays.fill(dst,(int)(1e9));
+        q.add(new Pair(0,k));
+        dst[k]=0;
+        while(!q.isEmpty()){
+            Pair p=q.poll();
+            if(visit[p.node]==1) continue;
+            visit[p.node]=1;
+            for(Pair it:adj.get(p.node)){
+                if(p.t+it.t<dst[it.node]) dst[it.node]=p.t+it.t;
+                q.add(new Pair(p.t+it.t,it.node));
+            }
+        }
+        int dt=0;
+        for(int i=1;i<n+1;++i){
+            if(dst[i]==(int)(1e9)) return -1;
+            dt=Math.max(dt,dst[i]);
+        }
+        return dt;
+    }
+}
+
 11.Matrix Block Sum
 12.Restore IP Addresses
