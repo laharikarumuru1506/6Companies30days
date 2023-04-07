@@ -27,4 +27,50 @@ class Solution {
 
 
 5.Number of Closed Islands
+
+class Solution {
+    public void dfs(int row,int col,int[][] visit,int[][] grid,int[] delRow,int[] delCol,int n,int m){
+        visit[row][col]=1;
+        for(int i=0;i<4;++i){
+            int nrow=delRow[i]+row;
+            int ncol=delCol[i]+col;
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && visit[nrow][ncol]==0 && grid[nrow][ncol]==0){
+                dfs(nrow,ncol,visit,grid,delRow,delCol,n,m);
+            }
+        }
+    }
+    public int closedIsland(int[][] grid) {
+        int n=grid.length,m=grid[0].length;
+        int[][] visit=new int[n][m];
+        int[] delRow={-1,+1,0,0};
+        int[] delCol={0,0,-1,+1};
+        for(int i=0;i<n;++i){
+            if(visit[i][0]==0 && grid[i][0]==0){
+                dfs(i,0,visit,grid,delRow,delCol,n,m);
+            }
+            if(visit[i][m-1]==0 && grid[i][m-1]==0){
+                dfs(i,m-1,visit,grid,delRow,delCol,n,m);
+            }
+        }
+        for(int i=0;i<m;++i){
+            if(visit[0][i]==0 && grid[0][i]==0){
+                dfs(0,i,visit,grid,delRow,delCol,n,m);
+            }
+            if(visit[n-1][i]==0 && grid[n-1][i]==0){
+                dfs(n-1,i,visit,grid,delRow,delCol,n,m);
+            }
+        }
+        int cnt=0;
+        for(int i=0;i<n;++i){
+            for(int j=0;j<m;++j){
+                if(visit[i][j]==0 && grid[i][j]==0){
+                    ++cnt;
+                    dfs(i,j,visit,grid,delRow,delCol,n,m);
+                }
+            }
+        }
+        return cnt;
+    }
+}
+
 6.Distinct Echo Substrings
