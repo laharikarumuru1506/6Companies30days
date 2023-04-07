@@ -2,6 +2,46 @@ Continuation......# Microsoft
 DAY 3..........
 
 7.Scheduling a Course.
+
+class Solution {
+    public List<Integer> toposort(List<List<Integer>> adj,int V){
+        int[] inDegree=new int[V];
+        for(int i=0;i<V;++i){
+            for(Integer it:adj.get(i)){
+                inDegree[it]++;
+            }
+        }
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<V;++i){
+            if(inDegree[i]==0) q.add(i);
+        }
+        List<Integer> res=new ArrayList<>();
+        while(!q.isEmpty()){
+            int node=q.poll();
+            res.add(node);
+            for(Integer it:adj.get(node)){
+                inDegree[it]--;
+                if(inDegree[it]==0) q.add(it);
+            }
+        }
+        return res;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<numCourses;++i){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<prerequisites.length;++i){
+            int u=prerequisites[i][0];
+            int v=prerequisites[i][1];
+            adj.get(u).add(v);
+        }
+        List<Integer> topo=toposort(adj,numCourses);
+        if(topo.size()==numCourses) return true;
+        return false;
+    }
+}
+
 8.Profitable Path in a Tree.
 9.Number of Pairs satisfying Inequality.
 
